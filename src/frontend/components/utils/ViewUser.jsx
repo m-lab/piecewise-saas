@@ -77,27 +77,26 @@ export default function ViewUser(props) {
   const classes = useStyles();
   const theme = useTheme();
   const { onClose, onCloseDelete, open, rows, index, user } = props;
-  const [row, setRow] = React.useState(rows[index]);
+
   const [openEdit, setOpenEdit] = React.useState(false);
+  const [activeStep, setActiveStep] = React.useState(index);
 
   // handle prev next
-  const [activeStep, setActiveStep] = React.useState(index);
-  const maxSteps = rows.length;
+	const maxSteps = rows.length;
 
-  React.useEffect(() => {
-    setRow(rows[index]);
-    setActiveStep(index);
-  }, [index]);
+	const row = rows[activeStep];
 
-  const handleNext = () => {
-    setActiveStep(activeStep => activeStep + 1);
-    setRow(rows[activeStep + 1]);
-  };
+	React.useEffect(() => {
+		setActiveStep(index);
+	}, [index]);
 
-  const handleBack = () => {
-    setActiveStep(activeStep => activeStep - 1);
-    setRow(rows[activeStep - 1]);
-  };
+	const handleNext = () => {
+		setActiveStep(activeStep => activeStep + 1);
+	};
+
+	const handleBack = () => {
+		setActiveStep(activeStep => activeStep - 1);
+	};
 
   const handleClose = (row, index) => {
     onClose(row, index);
@@ -194,13 +193,9 @@ export default function ViewUser(props) {
     setOpenEdit(true);
   };
 
-  const handleCloseEdit = rowChanges => {
-    const newRow = { ...row, ...rowChanges };
-    if (rowChanges) {
-      setRow(newRow);
-    }
-    setOpenEdit(false);
-  };
+  const handleCloseEdit = () => {
+		setOpenEdit(false);
+	};
 
   return (
     <Dialog

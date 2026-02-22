@@ -66,27 +66,25 @@ export default function ViewInstance(props) {
   const classes = useStyles();
   const theme = useTheme();
   const { onClose, onCloseDelete, open, rows, index, user } = props;
-  const [row, setRow] = React.useState(rows[index]);
+
+	const [activeStep, setActiveStep] = React.useState(index);
+	const row = rows[activeStep];
   const [openEdit, setOpenEdit] = React.useState(false);
 
   // handle prev next
-  const [activeStep, setActiveStep] = React.useState(index);
   const maxSteps = rows.length;
 
-  React.useEffect(() => {
-    setRow(rows[index]);
+	React.useEffect(() => {
     setActiveStep(index);
   }, [index]);
 
-  const handleNext = () => {
-    setActiveStep(activeStep => activeStep + 1);
-    setRow(rows[activeStep + 1]);
-  };
+	const handleNext = () => {
+		setActiveStep((prev) => prev + 1);
+	};
 
-  const handleBack = () => {
-    setActiveStep(activeStep => activeStep - 1);
-    setRow(rows[activeStep - 1]);
-  };
+	const handleBack = () => {
+		setActiveStep((prev) => prev - 1);
+	};
 
   const handleClose = (row, index) => {
     onClose(row, index);
