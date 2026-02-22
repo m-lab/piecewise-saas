@@ -135,9 +135,10 @@ const EnhancedTableToolbar = props => {
   // handle add instance
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+	const handleClickOpen = (localIndex) => {
+		setIndex(localIndex + page * rowsPerPage);
+		setOpen(true);
+	};
 
   const handleClose = (instance, id) => {
     if (instance) {
@@ -379,7 +380,7 @@ export default function EnhancedTable(props) {
           />
           {rows.length > 0 && (
             <ViewInstance
-              index={index + page * rowsPerPage}
+              index={index}
               rows={stableSort(rows, getComparator(order, orderBy))}
               open={open}
               onClose={handleClose}
